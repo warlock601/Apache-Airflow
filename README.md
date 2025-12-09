@@ -19,3 +19,10 @@ In Airflow, we can write our DAGs in python and schedule them for execution at r
 - Metadata Database – It is used for storing the pipeline task status.
 <img width="731" height="437" alt="image" src="https://github.com/user-attachments/assets/d70ab2c9-b578-4f4b-b606-40ec100d95b2" />
 
+### Lifecycle of a Data Science project
+- Data Ingesion: Data is read from a specific source.
+- Feature Enginerring: Exploratory Data Analysis, handling misssing values, Handling outliers, Categorical encoding, Normalisation & Standardization.
+- Feature Selection: Correlation, Forward Elimination, Backward Elimination, Univariate Selection, RandomForest Importance, Feature eldction with Decision trees.
+- Model creation & Hyperparamter tuning: GridSearchCV, Randomized SearchCV, Keras tuner, Bayesian Optimization-Hyperopt, Genetics Algorithms, Optuna.
+- Model Deployment (once the model is created then it is dockerised & deployed on a cloud provider like AWS, GCP, Azure) 
+- Model monitoring & Retraining 
