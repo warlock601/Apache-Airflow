@@ -1,4 +1,5 @@
-### Building DAGs with Airflow
+# Building DAGs with Airflow
+
 - Whatever DAG we want to create, its code will be written inside a file in "dags" folder in the setup that is created using "astro dev init". Let say we created "mlpipeline.py". Consider this as a module for DAG in which we will define all the tasks. 
 - PythonOperator is used to define a task based on a python function.
 - Tasks will be having dependencies which we will be displaying or we'll follow a specific flow such that which task needs to be executed first and so on. 
@@ -43,3 +44,6 @@ with DAG(
 ```bash
 astro dev start
 ```
+<img width="2736" height="1208" alt="image" src="https://github.com/user-attachments/assets/e40b2c63-8b9b-4c63-819e-bc7a5684309d" />
+
+Note: If you are running Airflow 2.6+ or 2.7+ inside Astronomer, there might be some syntax changes such as the DAG constructor no longer accepts schedule_interval. Airflow deprecated "schedule_interval" and replaced it with "schedule"
