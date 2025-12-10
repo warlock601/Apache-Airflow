@@ -117,5 +117,8 @@ astro dev stop
 <img width="1710" height="1184" alt="image" src="https://github.com/user-attachments/assets/a54f48b0-19d0-436e-9736-35b38435e6f4" /> </br>
 And we can access AirFlow UI here:  http://localhost:8080
 <img width="2722" height="1424" alt="image" src="https://github.com/user-attachments/assets/5a33de37-a391-40c8-8068-750567ebfd66" />
+</br>
+Here we can see all the DAGs, Tasks, runs for DAGs, Graphs, Logs, Event Logs etc. There is one more component called XCom which talks about what info is basically passing from one task to another task.
+
 
 
