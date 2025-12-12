@@ -67,6 +67,7 @@ with DAG(
 </br>
 <img width="2850" height="1424" alt="image" src="https://github.com/user-attachments/assets/ff0b382b-b453-41c0-b3d2-cea06513fc13" />
 </br>
+</br>
 We will still be able to see the XCOM value by using TaskFlow API:
 </br>
 </br>
