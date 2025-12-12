@@ -64,3 +64,11 @@ with DAG(
     square_value=square_number(subtracted_value)
 
 ```
+</br>
+<img width="2850" height="1424" alt="image" src="https://github.com/user-attachments/assets/ff0b382b-b453-41c0-b3d2-cea06513fc13" />
+</br>
+We will still be able to see the XCOM value by using TaskFlow API:
+</br>
+</br>
+<img width="2840" height="926" alt="image" src="https://github.com/user-attachments/assets/9c78bbec-6e48-4f77-b034-2b357386b9fd" />
+
