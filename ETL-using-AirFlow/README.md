@@ -19,5 +19,27 @@ analytics, BI, reporting, and ML workloads.
 ELT is common in modern cloud architectures, but ETL is still used when heavy transformation is required before loading. ETL is suitable when transformation requires compute layer outside warehouse. ELT is suitable when warehouse is scalable enough to transform raw data
 
 
-## Problem Statement
-We'll take a specific API, we'll read the data from it. Then we'll be doing some kind of transformation (like converting it into Json) and then we save it into a database. We'll be taking NASA API
+## Pipeline Overview
+- In Airflow if we want to go and hit an API, we have to use simple HTTP operator. More info about Airflow http operator:
+https://airflow.apache.org/docs/apache-airflow-providers-http/stable/operators.html
+
+- We need to insert the data inside the postgres database so for that we have something called as Postgres hook. The PostgresHook is a specialized interface used to interact with a PostgreSQL database. To create the table, we need to interact with the Database, like here Postgres and for that we will need "Postgres hook".
+
+- We are creating postgres as a docker container, and as Astronomer is running the entire Airflow in a Docker container, both of these docker containers will need to interact with each other. So that entire configuration will be written in docker-compose.yml. Because we want multiple containers to interact with each other, let say a postgres and a mySQL container wants to interact so they should have a common Network to communicate with each other.
+- Now we will generate the API key. Go to htttps://api.nasa.gov and fill in the details. Will receive an API key over email which we will use for interaction.</br>
+   <img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/31c20d68-a2ce-4a3e-abab-593633a827a5" /></br>
+  SimpleHttpdOperator is responsible for hitting the API and retreiving the information.</br>
+  To check whether the API key is working or not, we will send a GET request and this will have all the details about the API like name, date, image etc.</br>
+ using this: https://api.nasa.gov/planetary/apod?api_key=<key-value>. We'll get something like this: </br>
+<img width="2744" height="318" alt="image" src="https://github.com/user-attachments/assets/a268f550-c93e-44f4-bbbd-d4b3a65acbdd" /></br>
+  "http_conn_id" should basically map to this URL mentioned above. "planetary/apod" is written as an endpoint over here. Also we could've hardcoded the API key value but we want that AirFlow connection should provide the API key, so api+key" will be retreived from connection string of the airflow and this is specifically how we read that particular connection.
+```bash
+extract_apod=SimpleHttpOperator(
+        task_id='extract_apod',
+        http_conn_id='nasa_api',                                      # Coonection ID defined in Airflow for NASA API
+        endpoint='planetary/apod',                                    # NASA API endpoint for APOD
+        method='GET',
+        data={"api_key":"{{conn.nasa_api.extra_dejson.api_key}}"},    # Use the API key for connection.
+        response_filter=lambda response:response.json(),              # To convert data received to JSON (response to json)
+    )
+```
