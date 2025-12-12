@@ -17,3 +17,7 @@ analytics, BI, reporting, and ML workloads.
 
 ### ETL v/s ELT
 ELT is common in modern cloud architectures, but ETL is still used when heavy transformation is required before loading. ETL is suitable when transformation requires compute layer outside warehouse. ELT is suitable when warehouse is scalable enough to transform raw data
+
+
+## Problem Statement
+We'll take a specific API, we'll read the data from it. Then we'll be doing some kind of transformation (like converting it into Json) and then we save it into a database. We'll be taking NASA API
