@@ -43,3 +43,4 @@ extract_apod=SimpleHttpOperator(
         response_filter=lambda response:response.json(),              # To convert data received to JSON (response to json)
     )
 ```
+- Building Transformation & Load Pipeline: 
