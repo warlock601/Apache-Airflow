@@ -80,7 +80,8 @@ extract_apod=SimpleHttpOperator(
         ))
 ```
 - DBViewer is used to confirm if the data is loaded into the database or not. Foe g: here it will check if the data is loaded into postgres or not.
-- We'll specify the order of tasks because there will be dependencies. Like we need to ensure that table is created before extraction.
+- We'll specify the order of tasks because there will be dependencies. Like we need to ensure that table is created before extraction.</br>
+  Usually in http operators, whatever variable is basically created, there will be a variable called output and inside that our entire response will be available.
 ```bash
 create_table >> extract_apod      # Ensure the table is created before extraction
     api_response=extract_apod.output
@@ -88,4 +89,15 @@ create_table >> extract_apod      # Ensure the table is created before extractio
     transformed_data=transform_apod_data(api_response)
     # load
     load_data_to_postgres(transformed_data)
+```
+- And then to run this DAG, we'll do
+```bash
+astro dev start
+```
+- In Airflow UI, go to Admin > Connections > Add 2 different connections
+- Troubleshooting Tip: If in case you get port binding error while starting Airflow using Astro, like using "astro dev start", then stop the existing containers in Docker desktop that are using that specific port. error statement will be like this:
+```bash
+Error: error building, (re)creating or starting project containers: Error response from daemon: driver failed programming external
+connectivity on endpoint etl-using-air-flow_a7e7a7-postgres-1 (c4a63a3c92abd405aa627363c6d050e2a19fd325e1648054d83a92e58833e705):
+Bind for 127.0.0.1:5432 failed: port is already allocated
 ```
