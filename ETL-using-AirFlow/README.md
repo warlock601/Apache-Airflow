@@ -43,4 +43,49 @@ extract_apod=SimpleHttpOperator(
         response_filter=lambda response:response.json(),              # To convert data received to JSON (response to json)
     )
 ```
-- Building Transformation & Load Pipeline: 
+- Building Transformation & Load Pipeline: Once we receive the response from previous step, then only we can do the transformation. I'll be selecting some of the fields from the entire response and to get those field values, I'll use "response.get". If a particular key or field is not available, it will give me a blank response.
+```bash
+@task
+    def transform_apod_data(response):
+        apod_data={
+            'title': response.get('title',''),
+            'explanation': response.get('explanation',''),
+            'url': response.get('url',''),
+            'date': response.get('date',''),
+            'media_type': response.get('media_type','')
+        }
+        return apod_data
+```
+- Loading the data into postgres: Inside the function, we'll ue postgres_hook which will further use postgres connection id.
+```bash
+@task
+    def load_data_to_postgres(apod_data):
+
+        ## Initialize the PostgresHook
+        postgres_hook=PostgresHook(postgres_conn_id='my_postgres_connection')
+
+        ## Define the SQL Insert query
+        insert_query="""
+        INSERT INTO apod_data (title, explanation, url, date, media_type)
+        VALUES (%s, %s, %s, %s, %s);
+        """
+
+        ## Execute the SQL query
+        postgres_hook.run(insert_query,parameters=(
+            apod_data['title'],
+            apod_data['title'],
+            apod_data['title'],
+            apod_data['title'],
+            apod_data['title']
+        ))
+```
+- DBViewer is used to confirm if the data is loaded into the database or not. Foe g: here it will check if the data is loaded into postgres or not.
+- We'll specify the order of tasks because there will be dependencies. Like we need to ensure that table is created before extraction.
+```bash
+create_table >> extract_apod      # Ensure the table is created before extraction
+    api_response=extract_apod.output
+    # transform
+    transformed_data=transform_apod_data(api_response)
+    # load
+    load_data_to_postgres(transformed_data)
+```
