@@ -96,10 +96,19 @@ extract_apod=SimpleHttpOperator(
 ```bash
 astro dev start
 ```
-- In Airflow UI, go to Admin > Connections > Add 2 different connections
+
 - Troubleshooting Tip: If in case you get port binding error while starting Airflow using Astro, like using "astro dev start", then stop the existing containers in Docker desktop that are using that specific port. error statement will be like this:
 ```bash
 Error: error building, (re)creating or starting project containers: Error response from daemon: driver failed programming external
 connectivity on endpoint etl-using-air-flow_a7e7a7-postgres-1 (c4a63a3c92abd405aa627363c6d050e2a19fd325e1648054d83a92e58833e705):
 Bind for 127.0.0.1:5432 failed: port is already allocated
 ```
+- After Airflow Docker container is running and you're able to access it, in Airflow UI, go to Admin > Connections > Add 2 different connections here. Same connection_id needs to be in the code as well.  </br>
+  1. Connection ID: nasa_api, Connection Type: HTTP, Host: https://api.nasa.gov/ & In Extra Fields JSON, put the API key (the same api we were calling).</br>
+  <img width="1824" height="592" alt="image" src="https://github.com/user-attachments/assets/d957ac61-18c1-4d4c-a0e7-64301ef00bbf" /></br>
+  2. This connection is with respect to Postgres.
+     Connection ID: my_postgres_connection, Connection Type: Postgres,Port: 5432, Host: Go to Docker Desktop there will be a postgres container running for this Airflow setup. Copy the name of the postgres container and paste in the Host. Also database, login, password: all 3 fields are set to "postgres" here</br>
+     <img width="1928" height="1230" alt="image" src="https://github.com/user-attachments/assets/a64b00e9-de99-4961-9e00-e21c6e35a83c" />
+     <img width="1982" height="1340" alt="image" src="https://github.com/user-attachments/assets/6cc1a3d1-b542-4c68-aebb-18371895ef1c" /> </br>
+
+
