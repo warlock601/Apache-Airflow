@@ -111,4 +111,6 @@ Bind for 127.0.0.1:5432 failed: port is already allocated
      <img width="1928" height="1230" alt="image" src="https://github.com/user-attachments/assets/a64b00e9-de99-4961-9e00-e21c6e35a83c" />
      <img width="1982" height="1340" alt="image" src="https://github.com/user-attachments/assets/6cc1a3d1-b542-4c68-aebb-18371895ef1c" /> </br>
 
+- Then we can manually trigger pipeline from AirFlow UI. </br>
+  <img width="2848" height="1376" alt="image" src="https://github.com/user-attachments/assets/7fa93ff4-7644-4db3-9c04-08d46ca8c221" />
 
