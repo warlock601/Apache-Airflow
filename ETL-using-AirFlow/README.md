@@ -73,10 +73,10 @@ extract_apod=SimpleHttpOperator(
         ## Execute the SQL query
         postgres_hook.run(insert_query,parameters=(
             apod_data['title'],
-            apod_data['title'],
-            apod_data['title'],
-            apod_data['title'],
-            apod_data['title']
+            apod_data['explanation'],
+            apod_data['url'],
+            apod_data['date'],
+            apod_data['media_type']
         ))
 ```
 - DBViewer is used to confirm if the data is loaded into the database or not. Foe g: here it will check if the data is loaded into postgres or not.
