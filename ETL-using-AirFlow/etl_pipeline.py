@@ -75,10 +75,10 @@ with DAG(
         ## Execute the SQL query
         postgres_hook.run(insert_query,parameters=(
             apod_data['title'],
-            apod_data['title'],
-            apod_data['title'],
-            apod_data['title'],
-            apod_data['title']
+            apod_data['explanation'],
+            apod_data['url'],
+            apod_data['date'],
+            apod_data['media_type']
         ))
 
     ## Step 5: Verify the data DBViewer
