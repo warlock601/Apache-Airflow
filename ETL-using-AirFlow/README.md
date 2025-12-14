@@ -83,12 +83,14 @@ extract_apod=SimpleHttpOperator(
 - We'll specify the order of tasks because there will be dependencies. Like we need to ensure that table is created before extraction.</br>
   Usually in http operators, whatever variable is basically created, there will be a variable called output and inside that our entire response will be available.
 ```bash
-create_table >> extract_apod      # Ensure the table is created before extraction
+    create_table_task=create_table()
     api_response=extract_apod.output
     # transform
     transformed_data=transform_apod_data(api_response)
     # load
-    load_data_to_postgres(transformed_data)
+    load_data_task=load_data_to_postgres(transformed_data)
+
+    create_table_task >> extract_apod >> transformed_data >> load_data_task
 ```
 - And then to run this DAG, we'll do
 ```bash
