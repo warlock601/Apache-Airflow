@@ -107,10 +107,24 @@ Bind for 127.0.0.1:5432 failed: port is already allocated
   1. Connection ID: nasa_api, Connection Type: HTTP, Host: https://api.nasa.gov/ & In Extra Fields JSON, put the API key (the same api we were calling).</br>
   <img width="1824" height="592" alt="image" src="https://github.com/user-attachments/assets/d957ac61-18c1-4d4c-a0e7-64301ef00bbf" /></br>
   2. This connection is with respect to Postgres.
-     Connection ID: my_postgres_connection, Connection Type: Postgres,Port: 5432, Host: Go to Docker Desktop there will be a postgres container running for this Airflow setup. Copy the name of the postgres container and paste in the Host. Also database, login, password: all 3 fields are set to "postgres" here</br>
+     Connection ID: my_postgres_connection, Connection Type: Postgres,Port: 5432, Host: Go to Docker Desktop there will be a postgres container running for this Airflow setup. Copy the name of the postgres container and paste in the Host. Also database, login, password: all 3 fields are set to "postgres" here.</br>
      <img width="1928" height="1230" alt="image" src="https://github.com/user-attachments/assets/a64b00e9-de99-4961-9e00-e21c6e35a83c" />
      <img width="1982" height="1340" alt="image" src="https://github.com/user-attachments/assets/6cc1a3d1-b542-4c68-aebb-18371895ef1c" /> </br>
 
 - Then we can manually trigger pipeline from AirFlow UI. </br>
   <img width="2848" height="1376" alt="image" src="https://github.com/user-attachments/assets/7fa93ff4-7644-4db3-9c04-08d46ca8c221" />
+
+- We can check the Logs in AirFlow, that the table is being created. </br>
+  <img width="2112" height="1268" alt="image" src="https://github.com/user-attachments/assets/559a1420-a8ce-4862-8d4d-bff7c83195b8" />
+
+- In extract_apod task, in XCom we get the entire information and this info is coming from the API. In load_data_to_postgres task, in the logs there is " Rows affected: 1 ". </br>
+  <img width="1192" height="684" alt="image" src="https://github.com/user-attachments/assets/2a7d5e03-489a-4603-b22c-7ae56764a382" />
+
+
+- In Docker Desktop there is postgres-container running but if we try to access it using the URL given to check the inserted data, we won't be able to do so. So in order to connect to Postgres, we require DBeaver. </br>
+  </br>
+  **DBeaver** is a database client (DB viewer / SQL IDE) used to directly inspect the metadata databases backing Airflow and MLflow. We can download it from here: https://dbeaver.io/ </br>
+  In DBeaver, first we will form connection with the Postgres Database that we created. Go to Database > New Database Connection > Add the details like password and Finish. In the Left click on postgres > Databases > postgres > Schemas > public > Tables > Select a table like "apod_data" here. Click on "Data" on top and we will be able to see the row/s that were added. (I triggered the DAG twice, that's why 2 rows inserted)
+  <img width="1876" height="374" alt="image" src="https://github.com/user-attachments/assets/3d9463f6-5906-4cdd-ad42-5fadafc891c1" />
+
 
